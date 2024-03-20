@@ -1,0 +1,17 @@
+#!/bin/bash
+
+proto_dirs=("proto")
+output_dir="."
+
+# Vòng lặp qua từng thư mục proto và tìm tất cả các file .proto
+for dir in "${proto_dirs[@]}"; do
+  # Tìm tất cả các file .proto trong thư mục dir
+  proto_files=$(find "$dir" -name "*.proto")
+
+  # Vòng lặp qua từng file .proto và chạy lệnh protoc
+  for file in $proto_files; do
+    echo "Biên dịch file: $file"
+    # protoc --proto_path=. --micro_out=. --go_out=:. proto/product_services.proto
+    protoc --proto_path=. --micro_out="$output_dir" --go_out="$output_dir" "$file"
+  done
+done

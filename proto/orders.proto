@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "proto/services;services";
+
+import "proto/products.proto";
+
+service Orders {
+  rpc Call(products.CallRequest) returns (products.CallResponse) {}
+  rpc ClientStream(stream products.ClientStreamRequest) returns (products.ClientStreamResponse) {}
+  rpc ServerStream(products.ServerStreamRequest) returns (stream products.ServerStreamResponse) {}
+  rpc BidiStream(stream products.BidiStreamRequest) returns (stream products.BidiStreamResponse) {}
+}
